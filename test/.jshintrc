@@ -1,0 +1,8 @@
+{
+  "extends": "../.jshintrc",
+
+  "expr": true,
+  "-W024": true,
+
+  "mocha": true
+}

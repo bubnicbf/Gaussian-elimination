@@ -1,0 +1,40 @@
+{
+  "name": "na-gaussian-elimination",
+  "version": "0.0.1",
+  "description": "Solves systems of linear equations using Gaussian Elimination",
+  "main": "./na-gaussian-elimination",
+  "scripts": {
+    "test": "mocha",
+    "min": "uglifyjs na-gaussian-elimination.js --comments '/^!/' --compress --mangle -o na-gaussian-elimination.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tfoxy/na-gaussian-elimination"
+  },
+  "bugs": {
+    "url": "https://github.com/tfoxy/na-gaussian-elimination/issues"
+  },
+  "keywords": [
+    "gaussian",
+    "elimination",
+    "matrix",
+    "solution",
+    "system",
+    "linear",
+    "equations",
+    "row",
+    "reduction",
+    "solver"
+  ],
+  "devDependencies": {
+    "bignumber.js": "^2.0.7",
+    "chai": "^3.2.0",
+    "jscs": "^2.1.1",
+    "jshint": "^2.8.0",
+    "mocha": "^2.3.2",
+    "sinon": "^1.16.1",
+    "sinon-chai": "^2.8.0"
+  },
+  "author": "Tomás Fox <tomas.c.fox@gmail.com>",
+  "license": "MIT"
+}
