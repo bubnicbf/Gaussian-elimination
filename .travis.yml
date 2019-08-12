@@ -1,0 +1,9 @@
+language: node_js
+deploy:
+  provider: npm
+  email: tomas.c.fox@gmail.com
+  api_key:
+    secure: UYpd5sHuLHNlZc7Gw+GlRPUz5CSMulBYKepIr+3eBsH7ZEnTaakMxcf/jFIr3Xm0q+Og3bwpf8FnxDKCzysG/NQtjbCWpXNM7hzSc+6QTndKToqyndZSvvHdCKJ74Om5FkWjXPJFlS/vtKTpKQnkdDkniiolrBT/cRyXq0U7Zvpd2RlDyyzUWt0mLJ1R+JRWsPp4J03bw1CWMAnh0dxcktfsj4FBuXZVxJHaMNroEcfgPpHfAkyJXaHLFGLdNVChBeb1maCg523ImTaevkRasyQFbIT50ciGx9V+IOkwI2L1l4Xjh1PF44SMZ9Q/BEXeyT9UKYGCUuBq9T4EoQwt812dHcHR0OLZe+cIsHPgP0PdtabCoKtERxmnZwMqHM+6oxTAe8PAdSm607qePLskp17GdrUMvEh1AxgJnQqsFBNjRRivTnu91hWryeJiY8QQIt/9rCGlp1ay+SYYEGztdjVcG2BcE0l89eb0IVecXvBAcpDGkPT20l24WUoANx57F4EbxJtBYXxyegCk9ppMtBZQIp1NV9gpl/fS+QG387OjEU+5lRuUCRXRYC6zGSMyihppj5lrybmCgC8flfnBoNNYugNjLK8Ydn1z/6pwC3wBgOCQYHnUmfEhdPTqFOjZ+o8/t9iOxUPAk+s+l0tS+oNG/q8JwSzv3JA+2Rke16k=
+  on:
+    tags: true
+    repo: tfoxy/na-gaussian-elimination

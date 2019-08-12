@@ -1,0 +1,15 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "freeze": true,
+  "indent": 2,
+  "maxdepth": 5,
+  "newcap": true,
+  "noarg": true,
+  "validthis": true,
+  "undef": true,
+  "unused": true,
+
+  "browser": true,
+  "node": true
+}
