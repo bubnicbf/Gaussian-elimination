@@ -1,7 +1,7 @@
 /*!
  * na-gaussian-elimination
  * @see https://github.com/tfoxy/na-gaussian-elimination
- * @version 0.0.1
+ * @version 0.0.2
  * @author Tomás Fox <tomas.c.fox@gmail.com>
  * @license MIT
  */
@@ -51,37 +51,11 @@
   function GaussianElimination(options) {
     options = options || {};
 
-    var pivotingType = getOption('pivoting', options);
-    this._pivotingType = pivotingType;
-    switch (pivotingType) {
-      case 'partial':
-        this._pivoting = partialPivoting.bind(this);
-        break;
-      case 'scaled':
-        this._pivoting = scaledPivoting.bind(this);
-        break;
-      case 'none':
-        this._pivoting = nonePivoting.bind(this);
-        break;
-      case 'avoid zero':
-        this._pivoting = avoidZeroPivoting.bind(this);
-        break;
-      case 'complete':
-        this._pivoting = completePivoting.bind(this);
-        break;
-      default:
-        throw new OptionsError('Unknown pivoting method: ' + options.pivoting);
-    }
+    this.setPivoting(getOption('pivoting', options));
 
-    var lu = getOption('lu', options);
-    if (lu) {
-      this._getLowerMatrixValue = valueFn;
-    } else {
-      var zero = getOption('zero', options);
-      this._getLowerMatrixValue = function getZero() {
-        return zero;
-      };
-    }
+    this.setLuFlag(getOption('lu', options));
+
+    this.setZero(getOption('zero', options));
   }
 
   function setEventEmitter(EventEmitter) {
@@ -91,6 +65,9 @@
     GaussianElimination.prototype.solve = solve;
     GaussianElimination.prototype.forwardElimination = forwardElimination;
     GaussianElimination.prototype.backSubstitution = backSubstitution;
+    GaussianElimination.prototype.setPivoting = setPivoting;
+    GaussianElimination.prototype.setLuFlag = setLuFlag;
+    GaussianElimination.prototype.setZero = setZero;
   }
 
   function getEventEmitter() {
@@ -144,6 +121,46 @@
   function valueFn(value) {
     return value;
   }
+
+  function setPivoting(pivotingType) {
+    switch (pivotingType) {
+      case 'partial':
+        this._pivoting = partialPivoting.bind(this);
+        break;
+      case 'scaled':
+        this._pivoting = scaledPivoting.bind(this);
+        break;
+      case 'none':
+        this._pivoting = nonePivoting.bind(this);
+        break;
+      case 'avoid zero':
+        this._pivoting = avoidZeroPivoting.bind(this);
+        break;
+      case 'complete':
+        this._pivoting = completePivoting.bind(this);
+        break;
+      default:
+        throw new OptionsError('Unknown pivoting method: ' + pivotingType);
+    }
+    this._pivotingType = pivotingType;
+  }
+
+  function setLuFlag(luFlag) {
+    if (luFlag) {
+      this._getLowerMatrixValue = valueFn;
+    } else {
+      this._getLowerMatrixValue = getZero.bind(this);
+    }
+  }
+
+  function getZero() {
+    return this._zero;
+  }
+
+  function setZero(zero) {
+    this._zero = zero;
+  }
+
 
   function solve(matrix, result) {
 
