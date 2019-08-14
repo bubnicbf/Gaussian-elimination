@@ -29,6 +29,39 @@ describe('Pivoting:', function() {
       expect(fn).to.throw(GaussianElimination.SolutionError);
     });
 
+    it('emits error when pivot is zero', function() {
+      var gaussianElimination = new GaussianElimination({
+        pivoting: 'none'
+      });
+      var matrix = [
+        [bn(0), bn(2)],
+        [bn(3), bn(4)]
+      ];
+      var result = [bn(5), bn(6)];
+
+      var listener = sinon.spy();
+      gaussianElimination.on('error', listener);
+      gaussianElimination.solve(matrix, result);
+
+      expect(listener).to.have.been.calledOnce;
+    });
+
+    it('returns null while solving and listening to error event when pivot is zero', function() {
+      var gaussianElimination = new GaussianElimination({
+        pivoting: 'none'
+      });
+      var matrix = [
+        [bn(0), bn(2)],
+        [bn(3), bn(4)]
+      ];
+      var result = [bn(5), bn(6)];
+
+      gaussianElimination.on('error', function() {});
+      var system = gaussianElimination.solve(matrix, result);
+
+      expect(system).to.be.null;
+    });
+
   });
 
   describe('partial', function() {

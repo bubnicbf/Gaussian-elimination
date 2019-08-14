@@ -63,8 +63,11 @@
     GaussianElimination.prototype.constructor = GaussianElimination;
 
     GaussianElimination.prototype.solve = solve;
+    GaussianElimination.prototype._solve = _solve;
     GaussianElimination.prototype.forwardElimination = forwardElimination;
+    GaussianElimination.prototype._forwardElimination = _forwardElimination;
     GaussianElimination.prototype.backSubstitution = backSubstitution;
+    GaussianElimination.prototype._backSubstitution = _backSubstitution;
     GaussianElimination.prototype.setPivoting = setPivoting;
     GaussianElimination.prototype.setLuFlag = setLuFlag;
     GaussianElimination.prototype.setZero = setZero;
@@ -163,12 +166,20 @@
 
 
   function solve(matrix, result) {
+    try {
+      return this._solve(matrix, result);
+    } catch (err) {
+      this.emit('error', err);
+      return null;
+    }
+  }
 
+  function _solve(matrix, result) {
     this.emit('solveStart', {matrix: matrix, result: result});
 
-    var system = this.forwardElimination(matrix, result);
+    var system = this._forwardElimination(matrix, result);
 
-    var solutionSystem = this.backSubstitution(matrix, result);
+    var solutionSystem = this._backSubstitution(matrix, result);
 
     system.transformationVector.forEach(function(transf, i) {
       swapArrayPlaces(result, i, transf);
@@ -182,6 +193,15 @@
 
 
   function forwardElimination(matrix, result) {
+    try {
+      return this._forwardElimination(matrix, result);
+    } catch (err) {
+      this.emit('error', err);
+      return null;
+    }
+  }
+
+  function _forwardElimination(matrix, result) {
     var m = matrix.length;
     var n = matrix[0].length;
     var end = Math.min(m, n);
@@ -258,6 +278,15 @@
 
 
   function backSubstitution(matrix, result) {
+    try {
+      return this._backSubstitution(matrix, result);
+    } catch (err) {
+      this.emit('error', err);
+      return null;
+    }
+  }
+
+  function _backSubstitution(matrix, result) {
     var rowLength = matrix[0].length;
     var m = matrix.length;
     var n = m - Math.max(m - rowLength, 0);
@@ -300,8 +329,8 @@
           if (resultValue.isZero()) {
             result[i] = resultValue;
           } else {
-            this.emit('error', new SolutionError('There is no solution for the system' +
-                ' (a number multiplied by zero cannot be non-zero)'));
+            throw new SolutionError('There is no solution for the system' +
+                ' (a number multiplied by zero cannot be non-zero)');
             return system;
           }
         } else {
@@ -325,15 +354,15 @@
           if (resultValue.isZero()) {
             continue;
           } else {
-            this.emit('error', new SolutionError('There is no solution for the system' +
-                ' (a number multiplied by zero cannot be non-zero)'));
+            throw new SolutionError('There is no solution for the system' +
+                ' (a number multiplied by zero cannot be non-zero)');
             return system;
           }
         }
 
         var solutionValue = resultValue.div(rowValue);
         if (solutionValue.cmp(lastSolution) !== 0) {
-          this.emit('error', new SolutionError('There is no solution for the system'));
+          throw new SolutionError('There is no solution for the system');
           return system;
         }
       }
@@ -370,7 +399,7 @@
   function nonePivoting(system, i) {
     var pivot = system.matrix[i][i];
     if (pivot.isZero()) {
-      this.emit('error', new SolutionError('Pivot ' + i + ' is zero'));
+      throw new SolutionError('Pivot ' + i + ' is zero');
     }
   }
 
