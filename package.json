@@ -1,11 +1,12 @@
 {
   "name": "na-gaussian-elimination",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Solves systems of linear equations using Gaussian Elimination",
   "main": "./na-gaussian-elimination",
   "scripts": {
-    "test": "mocha",
-    "min": "uglifyjs na-gaussian-elimination.js --comments '/^!/' --compress --mangle -o na-gaussian-elimination.min.js"
+    "test": "npm run jshint && jscs . && mocha",
+    "min": "uglifyjs na-gaussian-elimination.js --comments '/^!/' --compress --mangle -o na-gaussian-elimination.min.js",
+    "jshint": "jshint . --exclude-path=.gitignore --exclude='**/*.min.js'"
   },
   "repository": {
     "type": "git",

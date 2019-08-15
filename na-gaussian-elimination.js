@@ -331,7 +331,6 @@
           } else {
             throw new SolutionError('There is no solution for the system' +
                 ' (a number multiplied by zero cannot be non-zero)');
-            return system;
           }
         } else {
           result[i] = resultValue = resultValue.div(rowValue);
@@ -356,14 +355,12 @@
           } else {
             throw new SolutionError('There is no solution for the system' +
                 ' (a number multiplied by zero cannot be non-zero)');
-            return system;
           }
         }
 
         var solutionValue = resultValue.div(rowValue);
         if (solutionValue.cmp(lastSolution) !== 0) {
           throw new SolutionError('There is no solution for the system');
-          return system;
         }
       }
 

@@ -1,7 +1,7 @@
 /*!
  * na-gaussian-elimination
  * @see https://github.com/tfoxy/na-gaussian-elimination
- * @version 0.0.1
+ * @version 0.0.2
  * @author Tomás Fox <tomas.c.fox@gmail.com>
  * @license MIT
  */
