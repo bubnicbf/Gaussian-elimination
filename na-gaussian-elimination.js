@@ -1,7 +1,7 @@
 /*!
  * na-gaussian-elimination
  * @see https://github.com/tfoxy/na-gaussian-elimination
- * @version 0.0.2
+ * @version 0.0.3
  * @author Tomás Fox <tomas.c.fox@gmail.com>
  * @license MIT
  */
@@ -338,7 +338,8 @@
       }
 
       this.emit('substitutionOperationEnd', {
-        i: i
+        i: i,
+        value: resultValue
       });
     }
 
