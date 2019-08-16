@@ -1,6 +1,6 @@
 {
   "name": "na-gaussian-elimination",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Solves systems of linear equations using Gaussian Elimination",
   "main": "./na-gaussian-elimination",
   "scripts": {
